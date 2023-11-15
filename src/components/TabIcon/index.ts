@@ -1,0 +1,1 @@
+export { TabIcon } from './TabIcon';

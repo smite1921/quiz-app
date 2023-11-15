@@ -1,0 +1,1 @@
+export { ResultScreen } from './ResultScreen';

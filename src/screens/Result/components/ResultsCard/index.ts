@@ -1,0 +1,1 @@
+export { ResultsCard } from './ResultsCard';
