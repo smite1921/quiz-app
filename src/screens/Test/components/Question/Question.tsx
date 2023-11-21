@@ -17,9 +17,9 @@ export function Question({ question, onAnswered }: Props) {
           <Image
             style={questionStyle.image}
             source={{
-              uri: question.imageUrl,
+              uri: question.image?.uri,
             }}
-            alt="image"
+            alt={question.image?.alt}
           />
         </View>
         <Options

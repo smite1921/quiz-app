@@ -63,11 +63,9 @@ export function Header({
       else if (incorrect.includes(index)) return "#fca5a5";
       else return "#e5e5e5";
     })();
-
     return (
-      <Pressable onPress={() => onQuestionTouch(index)}>
+      <Pressable key={index} onPress={() => onQuestionTouch(index)}>
         <View
-          key={index}
           style={[
             header.circle,
             {

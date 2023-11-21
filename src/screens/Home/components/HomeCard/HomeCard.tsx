@@ -1,9 +1,10 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { Card, Heading } from "../../../../components";
+import { Heading } from "../../../../components";
+import { Image as ImageType } from "../../../../data/types";
 
 export interface Props {
   title: string;
-  image: string;
+  image?: ImageType;
   numOfQuestions: number;
   duration: number;
   index: number;
@@ -26,9 +27,9 @@ export function HomeCard({
         <Image
           style={homeCard.image}
           source={{
-            uri: image,
+            uri: image?.uri,
           }}
-          alt="image"
+          alt={image?.alt}
         />
       </View>
       <View style={homeCard.textContainer}>

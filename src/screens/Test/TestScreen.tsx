@@ -1,19 +1,19 @@
-import { memo, useEffect, useRef, useState } from 'react';
-import { Header, LoadingIndicator, Question as QuestionComponent } from './components';
-import PagerView from 'react-native-pager-view';
-import { TestScreenProps } from '../types';
+import { memo, useEffect, useRef, useState } from "react";
 import {
-  allQuestions,
-  signQuestions,
-  roadRulesQuestions,
-  demeritPointsQuestions,
-  type Question,
-} from '../../data';
-import { View } from 'react-native';
-import { shuffleArray } from './shuffle';
+  Header,
+  LoadingIndicator,
+  Question as QuestionComponent,
+} from "./components";
+import PagerView from "react-native-pager-view";
+import { TestScreenProps } from "../types";
+
+import { View } from "react-native";
+import { shuffleArray } from "./shuffle";
+import { Question } from "../../data/types";
+import { flagQuestions } from "../../data";
 
 export function TestScreen({ navigation, route }: TestScreenProps) {
-  const category = route.params.category;
+  const category = route.params.testName;
 
   const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -29,18 +29,12 @@ export function TestScreen({ navigation, route }: TestScreenProps) {
   useEffect(() => {
     const questions = (() => {
       switch (category) {
-        case 'all':
-          return allQuestions;
-        case 'roadRules':
-          return roadRulesQuestions;
-        case 'signs':
-          return signQuestions;
-        case 'demeritPoints':
-          return demeritPointsQuestions;
+        case "flags":
+          return flagQuestions;
       }
     })();
     setQuestions(shuffleArray(questions));
-    console.log('useEffect: load questions');
+    console.log("useEffect: load questions");
   }, [category]);
 
   // Effect run to update the header
@@ -61,7 +55,7 @@ export function TestScreen({ navigation, route }: TestScreenProps) {
         ),
       });
     }
-    console.log('useEffect: update header');
+    console.log("useEffect: update header");
   }, [
     navigation,
     currentQuestionIndex,
@@ -77,16 +71,22 @@ export function TestScreen({ navigation, route }: TestScreenProps) {
       questions.length > 0 &&
       questions.length === correctIndexes.length + incorrectIndexes.length
     ) {
-      navigation.push('Result', {
+      navigation.push("Result", {
         correctAnswers: correctIndexes.length,
         totalQuestions: questions.length,
         timeTaken: Date.now() - startTimeRef.current,
       });
     }
-    console.log('useEffect: check if test is done');
-  }, [navigation, questions.length, correctIndexes.length, incorrectIndexes.length, startTimeRef]);
+    console.log("useEffect: check if test is done");
+  }, [
+    navigation,
+    questions.length,
+    correctIndexes.length,
+    incorrectIndexes.length,
+    startTimeRef,
+  ]);
 
-  console.log('TestScreen');
+  console.log("TestScreen");
 
   if (questions.length === 0) {
     return <LoadingIndicator />;
@@ -122,7 +122,7 @@ const MemoizedPagerView = memo(
     onAnswered,
     onPageSelected,
   }: PagerViewComponentProps) {
-    console.log('MemoizedPagerView');
+    console.log("MemoizedPagerView");
     return (
       <PagerView
         ref={pagerViewRef}
@@ -132,8 +132,7 @@ const MemoizedPagerView = memo(
         initialPage={0}
         onPageSelected={({ nativeEvent }) => {
           onPageSelected(nativeEvent.position);
-        }}
-      >
+        }}>
         {questions.map((question, index) => {
           return (
             <View key={question.id}>

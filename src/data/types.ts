@@ -1,3 +1,8 @@
+export interface Image {
+  uri: string;
+  alt: string;
+}
+
 export interface Option {
   id: string;
   text: string;
@@ -7,10 +12,19 @@ export interface Option {
 export interface Question {
   id: string;
   question: string;
-  imageUrl?: string;
+  image?: Image;
   hint: string;
   options: Option[];
   answerDescription: string;
 }
 
-export type QuestionCategory = 'signs' | 'roadRules' | 'demeritPoints' | 'all';
+export interface Test {
+  id: string;
+  title: string;
+  image?: Image;
+  testName: TestName;
+  numOfQuestions: number;
+  duration: number;
+}
+
+export type TestName = "flags";
