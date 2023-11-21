@@ -11,6 +11,7 @@ import { View } from "react-native";
 import { shuffleArray } from "./shuffle";
 import { Question } from "../../data/types";
 import { flagQuestions } from "../../data";
+import { solarSystemQuestions } from "../../data/solarSystem";
 
 export function TestScreen({ navigation, route }: TestScreenProps) {
   const category = route.params.testName;
@@ -31,6 +32,8 @@ export function TestScreen({ navigation, route }: TestScreenProps) {
       switch (category) {
         case "flags":
           return flagQuestions;
+        case "solarSystem":
+          return solarSystemQuestions;
       }
     })();
     setQuestions(shuffleArray(questions));

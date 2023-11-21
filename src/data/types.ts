@@ -27,4 +27,4 @@ export interface Test {
   duration: number;
 }
 
-export type TestName = "flags";
+export type TestName = "flags" | "solarSystem";
